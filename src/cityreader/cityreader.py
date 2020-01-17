@@ -23,14 +23,12 @@ cities = []
 
 def cityreader(cities=[]):
   with open("cities.csv") as csvfile:
-    cities_info = csv.reader(csvfile, delimiter=",")
-    for row in cities_info:
-      #Eliminate first row (titles)
-      if row[0] != "city":
-        current_city = row[0]
-        current_lat = float(row[3])
-        current_lon = float(row[4])
-        cities.append(City(current_city, current_lat, current_lon))
+    all_cities = csv.DictReader(csvfile, delimiter=",")
+    for city in all_cities:
+      current_city = city["city"]
+      current_lat = float(city["lat"])
+      current_lon = float(city["lng"])
+      cities.append(City(current_city, current_lat, current_lon))
 
     return cities
 
